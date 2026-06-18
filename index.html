@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>laine kaminski - somatic coaching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ── Tokens ─────────────────────────────── */
+    :root {
+      --off-white:   #F5F0E8;
+      --cream:       #FAF6EF;
+      --terracotta:  #B8644A;
+      --sage:        #6B7C5E;
+      --sage-light:  #8FA880;
+      --fern:        #4A6840;
+      --moss:        #3D4F35;
+      --deep-moss:   #2A3D22;
+      --canopy:      #1E3018;
+      --bark:        #2A2118;
+      --warm-gray:   #8A7E72;
+      --bloom-pop:   #EAA397;
+      --sage-mist:   #EEF2E8;
+      --forest-mist: #E6EDE0;
+    }
+
+    ::selection        { background: var(--bloom-pop); color: var(--bark); }
+    ::-webkit-selection { background: var(--bloom-pop); color: var(--bark); }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: var(--bark);
+      line-height: 1.75;
+      background:
+        linear-gradient(180deg,
+          #F7F2EA 0%,
+          #F2EDE3 8%,
+          #EEE9DC 16%,
+          #EAE8DA 25%,
+          #E8EBDC 35%,
+          #E4EAD6 45%,
+          #E6EDD8 55%,
+          #EAECDc 65%,
+          #EDE8D8 75%,
+          #F0EAD8 85%,
+          #F4EFE4 93%,
+          #F7F2EA 100%
+        );
+      background-attachment: fixed;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ── Nav ──────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245, 240, 232, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(74, 104, 64, 0.12);
+    }
+
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--fern); }
+
+    .nav-cta {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.65; }
+
+    /* ── Hero ─────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      padding: 10rem 4rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.1;
+      color: var(--bark);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--warm-gray);
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+      line-height: 1.9;
+    }
+
+    .btn {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      background: var(--terracotta);
+      padding: 0.9rem 2.25rem;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      background: var(--moss);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(61, 79, 53, 0.22);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 620px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 4px;
+      filter: saturate(0.88);
+    }
+
+    /* ── Section shared ───────────────────────── */
+    .section {
+      padding: 7rem 4rem;
+    }
+
+    .section.alt {
+      background: linear-gradient(180deg, var(--forest-mist) 0%, var(--sage-mist) 50%, var(--forest-mist) 100%);
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-inner.narrow {
+      max-width: 660px;
+    }
+
+    .section-inner.center {
+      text-align: center;
+    }
+
+    .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.2;
+      color: var(--bark);
+      margin-bottom: 2rem;
+    }
+
+    .section p {
+      font-size: 1rem;
+      color: var(--warm-gray);
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+      max-width: 600px;
+    }
+
+    .section.center p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .fine {
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      opacity: 0.75;
+      margin-top: 2.5rem;
+    }
+
+    .fine a {
+      border-bottom: 1px solid currentColor;
+    }
+
+    /* ── The Work ─────────────────────────────── */
+    .the-work .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .the-work .left h2 { margin-bottom: 0; }
+
+    .the-work .right p:first-child { margin-top: 0.5rem; }
+
+    /* ── How It Works ─────────────────────────── */
+    .offerings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .offering {
+      padding: 2rem;
+      border: 1px solid rgba(74, 104, 64, 0.2);
+      border-radius: 4px;
+      background: linear-gradient(145deg, var(--off-white) 0%, var(--sage-mist) 100%);
+    }
+
+    .offering h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--bark);
+      margin-bottom: 0.75rem;
+    }
+
+    .offering p {
+      margin-bottom: 0;
+      font-size: 0.92rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+    }
+
+    /* ── About ────────────────────────────────── */
+    .about .section-inner {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 4px;
+      filter: saturate(0.88);
+    }
+
+    .about-text p { max-width: 520px; }
+
+    /* ── Work With Me ─────────────────────────── */
+    .work-with-me .btn { margin-top: 0.5rem; }
+
+    /* ── Footer ───────────────────────────────── */
+    footer {
+      padding: 2.5rem 4rem;
+      background: linear-gradient(135deg, var(--canopy) 0%, var(--deep-moss) 50%, var(--moss) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--off-white);
+      opacity: 0.8;
+    }
+
+    footer .copy {
+      font-size: 0.75rem;
+      color: var(--off-white);
+      opacity: 0.4;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FAQ ─────────────────────────────────── */
+    .faq-item {
+      border-bottom: 1px solid rgba(74, 104, 64, 0.18);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1.8rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      text-align: left;
+    }
+
+    .faq-question-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--bark);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--sage);
+      transition: transform 0.25s, color 0.2s;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--fern); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    .faq-answer-inner { padding-bottom: 1.8rem; }
+
+    /* ── Responsive ───────────────────────────── */
+    @media (max-width: 900px) {
+      nav    { padding: 1.25rem 1.75rem; }
+      .nav-links { gap: 1rem; }
+      .nav-link  { display: none; }
+      .hero  { grid-template-columns: 1fr; padding: 8rem 1.75rem 4rem; }
+      .hero-image { margin-top: 2.5rem; }
+      .hero-image img { height: 420px; object-position: center 15%; }
+      .section { padding: 5rem 1.75rem; }
+      .the-work .section-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .offerings { grid-template-columns: 1fr; }
+      .about .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 2rem 1.75rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Laine Kaminski</span>
+    <div class="nav-links">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#how-it-works" class="nav-link">Work With Me</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#work-with-me" class="nav-cta">Book a call</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Your body holds the <em>wisdom.</em><br>Let's unlearn the noise.</h1>
+      <p class="hero-sub">Somatic coaching for people who've done the work — and are ready to go deeper.</p>
+      <a href="#work-with-me" class="btn">Book a free intro call</a>
+    </div>
+    <div class="hero-image">
+      <img src="laine.jpg" alt="Laine Kaminski" />
+    </div>
+  </section>
+
+  <!-- THE WORK -->
+  <section class="section the-work" id="the-work">
+    <div class="section-inner">
+      <div class="left">
+        <span class="label">The work</span>
+        <h2>You've read the books.<br>You've been to therapy.<br>Something's still missing.</h2>
+      </div>
+      <div class="right">
+        <p>You're not broken. You're just living almost entirely from the neck up.</p>
+        <p>Most high-achieving people are. The pace demands it. But the mind alone can only take you so far — and there's a reason that deep breath you take once a week feels like stepping into a completely different world.</p>
+        <p>That world is your body. And it's been holding the answers all along.</p>
+        <p>Somatic coaching is the practice of slowing down long enough to actually listen — to the tension in your chest, the contraction before you say yes when you mean no, the quiet knowing that gets drowned out by deadlines and notifications.</p>
+        <p>This isn't about leaving your career or burning everything down. It's about finding out who you actually are underneath all of it — and building from there.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section alt" id="how-it-works">
+    <div class="section-inner narrow">
+      <span class="label">How it works</span>
+      <h2>A container for real change.</h2>
+      <p>This isn't a one-off session. Somatic work takes time — and so does unlearning. We work together in a sustained container so the insights have somewhere to land.</p>
+
+      <div class="offerings">
+        <div class="offering">
+          <h3>3-Month</h3>
+          <p>6 sessions total<br>2 × 60-min sessions per month<br><br>For those who are ready to begin.</p>
+        </div>
+        <div class="offering">
+          <h3>6-Month</h3>
+          <p>12 sessions total<br>2 × 60-min sessions per month<br><br>For deeper, lasting change.</p>
+        </div>
+      </div>
+
+      <p class="fine">Sessions are held via video. Pricing is intentionally accessible while Laine completes her ACC certification with the International Coaching Federation.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="section-inner">
+      <div class="about-image">
+        <img src="laine.jpg" alt="Laine Kaminski" />
+      </div>
+      <div class="about-text">
+        <span class="label">About</span>
+        <h2>I've sat in both chairs.</h2>
+        <p>By day, I work in corporate tech. I know what it feels like to be good at your job, look successful from the outside, and feel completely disconnected from yourself at the same time.</p>
+        <p>The path back for me wasn't more optimization. It was slowing down — in yoga, in ceremony, in the quiet moments when I finally let my body have a say.</p>
+        <p>I'm a trained coach (working toward ACC with the ICF), 200-hour yoga teacher, somatic practitioner, and reiki practitioner. I'm also a plant-based chef, a guardian at plant medicine ceremonies, and someone who tries to live as close to the natural world as possible.</p>
+        <p>I bring all of it to this work. You get the whole person.</p>
+        <p>I work with people who are ready to stop outsmarting themselves — and start listening instead.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK WITH ME -->
+  <section class="section alt work-with-me" id="work-with-me">
+    <div class="section-inner narrow center">
+      <span class="label">Work with me</span>
+      <h2>Ready to begin?</h2>
+      <p>Start with a free 30-minute intro conversation. No pressure, no pitch — just a chance to see if this feels right.</p>
+      <a href="mailto:laine@lainekaminski.com" class="btn">Book an intro call</a>
+      <p class="fine">Or reach me at <a href="mailto:laine@lainekaminski.com">laine@lainekaminski.com</a></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-inner narrow">
+      <span class="label">Common questions</span>
+      <h2>You might be wondering…</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Do I need experience with somatic work or therapy?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>No. Many people arrive having done plenty of talk therapy and are coming here because something was still missing. We start exactly where you are — the process is gradual and you are always in control of the pace.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Is this therapy? What's the difference?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>This is coaching, not therapy. Therapy is a regulated clinical practice focused on healing past wounds. Coaching focuses on your present experience and forward movement. We may touch on difficult material — the body holds all of it — but I am not your therapist. If clinical support is what you need, I will say so and help you find it.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">How long until I notice something shifting?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Most people feel something loosening within the first two or three sessions — not a dramatic transformation, but a felt sense of something changing. Deeper, structural change takes longer. That is why I work in sustained containers rather than one-off sessions: the nervous system does not rewire in a weekend.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Do sessions happen in person or online?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Sessions are held via video call, which works remarkably well for somatic work — the body is always with you. We can discuss what fits your situation on our intro call.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">What does a session actually look like?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Sessions are 60 minutes. We usually start with what is alive for you — a situation, a recurring pattern, something you cannot quite name. From there, we track what happens in the body: sensations, tension, breath, impulse. We follow those threads. It rarely looks like what you expect, and that is usually the point.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="name">Laine Kaminski</span>
+    <span class="copy">© 2026 · Seattle, WA</span>
+  </footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
